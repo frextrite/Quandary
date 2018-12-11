@@ -1,0 +1,19 @@
+{
+  "name": "quandary",
+  "version": "0.0.1",
+  "description": "simple secure way to chat anonymously with anyone on the WWW",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frextrite/Quandary.git"
+  },
+  "author": "AGAK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frextrite/Quandary/issues"
+  },
+  "homepage": "https://github.com/frextrite/Quandary#readme"
+}
