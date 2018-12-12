@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/frextrite/Quandary/issues"
   },
-  "homepage": "https://github.com/frextrite/Quandary#readme"
+  "homepage": "https://github.com/frextrite/Quandary#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.8",
+    "socket.io": "^2.2.0"
+  }
 }
