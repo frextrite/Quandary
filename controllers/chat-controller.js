@@ -3,24 +3,25 @@ const {Topic} = require('../server/models/topic')
 
 const join = async (data) => {
     let topic = await Topic.findById(data.id)
-    const commonSocketId = null
+    let bSocketId = null
     if(topic.waiting.length == 0){
         await Topic.findByIdAndUpdate(
             data.id,
             {$push: {waiting: data.socketid}})
     }
     else{
-        commonSocketId = Topic.findByIdAndUpdate(
+        bSocketId = await Topic.findByIdAndUpdate(
             data.id,
             {$pop: {waiting: -1}})
-        console.log(commonSocketId)
+        bSocketId = bSocketId.waiting[0]
+        console.log(bSocketId)
     }
-    return commonSocketId
+    return bSocketId
 }
 
 const leave = async (data) => {
     let removedSocketId = Topic.findByIdAndUpdate(
-        data.topicId,
+        data.id,
         {$pull: {waiting: data.socketid}
     })
     return removedSocketId

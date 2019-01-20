@@ -2,9 +2,15 @@ import React from 'react';
 
 const Topic = (props) => {
     return(
-        <div>
+        <button onClick = {() => {
+                props.handleClick({
+                    name: props.name,
+                    id: props.id
+                })
+            }
+        }>
             {props.name}
-        </div>
+        </button>
     )
 }
 
