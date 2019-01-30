@@ -6,7 +6,8 @@ const http = require('http')
 const path = require('path')
 
 const chatController = require('../controllers/chat-controller')
-const topicController = require('../controllers/topic-controller')
+
+const topicRoute = require('../routes/topicRoute');
 
 const app = express()
 const server = http.Server(app)
@@ -16,31 +17,7 @@ const io = socketio(server)
 const PORT = process.env.PORT || 3000 ;
 
 app.use(express.urlencoded({extended: true}))
-
-app.post('/topics',async (req,res) => {
-    try{
-        res.status(201).send(await topicController.addTopic(req.body.topic))
-    }
-    catch{
-        res.status(400).send({error: "Something went wrong!"})
-    }
-})
-app.delete('/topics',async (req,res) => {
-    try{
-        res.send(await topicController.removeTopic(req.body.id))
-    }
-    catch{
-        res.status(400).send({error: "Something went wrong!"})
-    }
-})
-app.get('/topics',async (req,res) => {
-    try{
-        res.send(await topicController.getAllTopics())
-    }
-    catch{
-        res.status(400).send({error: "Something went wrong!"})
-    }
-})
+app.use('/topics',topicRoute)
 
 io.on("connection",async (socket) => {
     console.log(`socket ${socket.id} connected`)
@@ -53,14 +30,20 @@ io.on("connection",async (socket) => {
     let roomName;
     if(bSocketId != null){
         roomName = randomstring.generate()
-        socket.emit("FOUND",roomName);
-        socket.to(bSocketId).emit("FOUND",roomName);
+        socket.emit("FOUND",{
+            username: randomstring.generate(),
+            roomName: roomName
+        });
+        socket.to(bSocketId).emit("FOUND",{
+            username: randomstring.generate(),
+            roomName: roomName
+        });
     }
-    socket.on("FOUND",newRoomName => {
-        socket.join(newRoomName)
+    socket.on("FOUND",data => {
+        socket.join(data.roomName)
         socket.leave(socket.id)
-        console.log(`${socket.id} joined ${newRoomName}`)
-        roomName = newRoomName
+        console.log(`${socket.id} joined ${data.roomName}`)
+        roomName = data.roomName
         inChat = true
     })
     socket.on("SEND",data => {

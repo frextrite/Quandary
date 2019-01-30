@@ -12,7 +12,8 @@ class App extends React.Component {
     state = {
         topics: [],
         isChatOn: false,
-        messages: []
+        messages: [],
+        username: ""
     };
     componentDidMount(){
         Axios.get('topics')
@@ -21,26 +22,31 @@ class App extends React.Component {
     handleTopicSelect = (data) => {
         console.log(data)
         if(this.isChatOn) return
-        socket = io({
-            query: data
-        });
+        socket = io({query: data});
+
         socket.on('connect',() => {
-            this.setState(() => ({isChatOn: true}))
             console.log('connected! '+socket.id)
         })
         socket.on("FOUND",data => {
             console.log("Connected!")
+            this.setState(() => ({
+                username: data.username,
+                isChatOn: true
+            }))
             socket.emit("FOUND",data)
         })
-        socket.on("RECV",msg => {
-            // console.log(`recv ${JSON.stringify(message)}`)
+        socket.on("RECV",data => {
+            console.log(`recv ${JSON.stringify(data)}`)
             this.setState(prevState => ({
-                messages: [...prevState.messages,msg.message]
+                messages: [...prevState.messages,data.message]
             }))
         })
     }
-    handleSend = (message) => {
-        socket.emit("SEND",message)
+    handleSend = message => {
+        socket.emit("SEND",{
+            from: this.state.username,
+            message: message
+        })
     }
     render(){
         let topicList = this.state.topics.map(
@@ -60,6 +66,8 @@ class App extends React.Component {
         return(
             <div>
                 {topicList}
+                <br />
+                {this.state.isChatOn ? "Connected!" : "Not connected!"}
                 <br />
                 {messageList}
                 <br />

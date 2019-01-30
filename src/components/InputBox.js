@@ -19,7 +19,7 @@ class InputBox extends React.Component{
                     value = {this.state.messageText}
                 />
                 <button onClick = {() => {
-                    this.props.handleSend({message: this.state.messageText})
+                    this.props.handleSend(this.state.messageText)
                     this.setState(() => ({messageText: ""}))
                     console.log(`Sent message: ${this.state.messageText}`)
                 }}>Send</button>

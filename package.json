@@ -4,6 +4,7 @@
   "description": "an anonymous chat app",
   "main": "index.js",
   "scripts": {
+    "popdb": "node utils/populateDB.js",
     "wp": "webpack",
     "dev-server": "webpack-dev-server",
     "build": "node server/server.js",
