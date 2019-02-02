@@ -8,7 +8,9 @@
     "wp": "webpack",
     "dev-server": "webpack-dev-server",
     "build": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-watch": "nodemon server/server.js",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec npm test"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,11 @@
     "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "mongodb": "^3.1.13",
+    "nodemon": "^1.18.9",
+    "supertest": "^3.4.2",
     "webpack-cli": "^3.2.1"
   }
 }

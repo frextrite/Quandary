@@ -13,9 +13,10 @@ const app = express()
 const server = http.Server(app)
 const io = socketio(server) 
 
-// const config = require('../config')
 const PORT = process.env.PORT || 3000 ;
 
+
+app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 app.use('/topics',topicRoute)
 
@@ -54,13 +55,11 @@ io.on("connection",async (socket) => {
     socket.on('disconnect',() => {
         chatController.leave(socketInfo)
     })
-    // socket.on('JOIN',data => {
-        
-    // })
 })
 
 app.use('/', express.static(path.join(__dirname,'../public')))
 
-// app.use((req,res) => res.redirect('/'))
 
 server.listen(PORT,console.log(`Server started on port ${PORT}`))
+
+module.exports = {server};

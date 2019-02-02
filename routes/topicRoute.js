@@ -8,7 +8,7 @@ route.post('/',async (req,res) => {
         res.status(201).send(await topicController.addTopic(req.body.topic))
     }
     catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).send({error: "Something went wrong!"})
     }
 })
@@ -17,7 +17,7 @@ route.delete('/',async (req,res) => {
         res.send(await topicController.removeTopic(req.body.id))
     }
     catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).send({error: "Something went wrong!"})
     }
 })
@@ -26,7 +26,7 @@ route.get('/',async (req,res) => {
         res.send(await topicController.getAllTopics())
     }
     catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).send({error: "Something went wrong!"})
     }
 })

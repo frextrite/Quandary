@@ -21,7 +21,7 @@ const addTopic = async (topic) => {
 }
 
 const removeTopic = async (topicId) => {
-    let removedTopic = await Topic.findByIdAndRemove(topicId)
+    let removedTopic = await Topic.findByIdAndDelete(topicId)
     return {
         id: removedTopic.id,
         name: removedTopic.name
