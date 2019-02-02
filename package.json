@@ -4,7 +4,10 @@
   "description": "simple secure way to chat anonymously with anyone on the WWW",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "popdb": "node utils/populateDB.js",
+    "wp": "webpack",
+    "dev-server": "webpack-dev-server",
+    "build": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,8 +21,23 @@
   },
   "homepage": "https://github.com/frextrite/Quandary#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "express": "^4.16.4",
-    "nodemon": "^1.18.8",
-    "socket.io": "^2.2.0"
+    "mongoose": "^5.4.5",
+    "randomstring": "^1.1.5",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "webpack": "^4.28.4",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
   }
 }
